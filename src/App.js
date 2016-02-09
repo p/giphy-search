@@ -5,7 +5,7 @@ import keydown from 'react-keydown';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {query: "", error: false, results: undefined};
+    this.state = {query: "", error: false, results: undefined, offset: 0};
   }
   
   onChange = (e) => {
@@ -13,12 +13,8 @@ class App extends Component {
   };
   
   onSubmit = (e) => {
-    //alert([this.state.query, request]);
-    
-    const query = this.state.query;
-    const api_key = 'dc6zaTOxFJmzC';
-    request.get('http://api.giphy.com/v1/gifs/search').
-      query({q: query, api_key: api_key}).end(this.onResults);
+    this.setState({offset: 0});
+    this.search();
     
     e.preventDefault();
   };
@@ -33,7 +29,36 @@ class App extends Component {
   
   @keydown('n')
   nextPage() {
-    alert('next');
+    if (this.state.results === undefined) {
+      return;
+    }
+    this.setState({offset: this.state.offset+25});
+    this.search();
+  }
+  
+  @keydown('p')
+  prevPage() {
+    if (this.state.results === undefined) {
+      return;
+    }
+    let new_offset;
+    if (this.state.offset >= 25) {
+      new_offset = this.state.offset - 25;
+    } else {
+      new_offset = 0;
+    }
+    if (this.state.offset != new_offset) {
+      this.setState({offset: new_offset});
+      this.search();
+    }
+  }
+  
+  search() {
+    const query = this.state.query;
+    const api_key = 'dc6zaTOxFJmzC';
+    request.get('http://api.giphy.com/v1/gifs/search').
+      query({q: query, api_key: api_key, offset: this.state.offset}).
+      end(this.onResults);
   }
   
   render() {
