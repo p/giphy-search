@@ -55,8 +55,8 @@ class App extends Component {
           <div>
             <h2>Results</h2>
             {this.state.results.map(function(result, i) {
-              return <div key={result.id}>
-                <img src={result.images.fixed_height.url} />
+              return <div key={result.id} style={{float:'left', margin:'5px'}}>
+                <img src={result.images.fixed_height_small.url} />
               </div>
             })}
           </div>
