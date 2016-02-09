@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import request from 'superagent';
+import keydown from 'react-keydown';
 
-var App = React.createClass({
-  getInitialState: function() {
-    return {query: "", error: false, results: undefined};
-  },
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {query: "", error: false, results: undefined};
+  }
   
-  onChange: function(e) {
+  onChange = (e) => {
     this.setState({query: e.target.value});
-  },
+  };
   
-  onSubmit: function(e) {
+  onSubmit = (e) => {
     //alert([this.state.query, request]);
     
     const query = this.state.query;
@@ -19,17 +21,22 @@ var App = React.createClass({
       query({q: query, api_key: api_key}).end(this.onResults);
     
     e.preventDefault();
-  },
+  };
   
-  onResults: function(err, res) {
+  onResults = (err, res) => {
     if (err) {
       this.setState({error: err});
     } else {
       this.setState({results: res.body.data});
     }
-  },
+  };
   
-  render: function() {
+  @keydown('n')
+  nextPage() {
+    alert('next');
+  }
+  
+  render() {
     return (
       <div>
         <h1>Giphy Search</h1>
@@ -48,7 +55,7 @@ var App = React.createClass({
           <div>
             <h2>Results</h2>
             {this.state.results.map(function(result, i) {
-              return <div>
+              return <div key={result.id}>
                 <img src={result.images.fixed_height.url} />
               </div>
             })}
@@ -56,7 +63,7 @@ var App = React.createClass({
         }
       </div>
     );
-  },
-});
+  }
+}
 
 export default App;;
