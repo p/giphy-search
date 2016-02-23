@@ -32,6 +32,11 @@ const finalCreateStore = fjs.compose(
 
 const store = finalCreateStore(reducer)
 
+// state:
+// query
+// results
+// offset
+
 ReactDOM.render(
   <Provider store={store}>
     <App store={store} />

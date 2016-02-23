@@ -1,3 +1,4 @@
+export const SET_QUERY = 'set query'
 export const NEXT_PAGE = 'next page'
 export const PREV_PAGE = 'prev page'
 export const FETCH_GIFS_REQUEST = 'fetch gifs request'

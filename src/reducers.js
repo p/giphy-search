@@ -10,13 +10,20 @@ const initialState = Immutable.Map({
 });
 
 export default function reduce(state=initialState, action) {
-  alert(['reducing', action.type])
+  //alert(['reducing', action.type])
   switch (action.type) {
+    case types.SET_QUERY:
+      return state.merge({query: action.query})
+      
     case types.NEXT_PAGE:
     debugger
       if (state.results === undefined) {
         //return state
       }
+      return dispatch => {
+        dispatch(actions.nextPage)
+      }
+      
       store.dispatch(actions.fetchGifsRequest()).then(()=>
         alert(1)
       )

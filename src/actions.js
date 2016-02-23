@@ -2,6 +2,10 @@ import * as types from './actiontypes'
 import fetch from 'isomorphic-fetch'
 import 'promise'
 
+export function setQuery(query) {
+  return {type: types.SET_QUERY, query}
+}
+
 export function nextPage() {
   return {type: types.NEXT_PAGE}
 }

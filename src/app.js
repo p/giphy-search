@@ -1,14 +1,17 @@
+import * as actions from './actions'
 import * as types from './actiontypes'
 import React, { Component } from 'react';
 import request from 'superagent';
 import keydown from 'react-keydown';
 import connect from 'react-redux'
 
-//@connect(state => state)
+//@connect(state => {debugger;return state})
 class App extends Component {
   constructor(props) {
+  //debugger
     super(props);
-    this.state = {query: "", error: false, results: undefined, offset: 0};
+    //this.store = props.store
+    //this.state = {query: "", error: false, results: undefined, offset: 0};
   }
 
   componentWillReceiveProps(props) {
@@ -20,10 +23,12 @@ class App extends Component {
   }
 
   onChange = (e) => {
-    this.setState({query: e.target.value});
+    this.props.store.dispatch(actions.setQuery(e.target.value))
   };
 
   onSubmit = (e) => {
+  e.preventDefault()
+  debugger
     this.setState({offset: 0});
     this.search();
 
@@ -40,6 +45,8 @@ class App extends Component {
 
   @keydown('n')
   nextPage() {
+  //alert(1)
+  debugger
     const {store} = this.props
     store.dispatch({type: types.NEXT_PAGE})
     return
@@ -62,6 +69,9 @@ class App extends Component {
   }
 
   search() {
+  debugger;
+  this.props.store.dispatch(actions.nextPage())
+  return
     const query = this.state.query;
     const api_key = 'dc6zaTOxFJmzC';
     request.get('http://api.giphy.com/v1/gifs/search').
@@ -70,24 +80,27 @@ class App extends Component {
   }
 
   render() {
+  //debugger
     return (
       <div>
         <h1>Giphy Search</h1>
         <form onSubmit={this.onSubmit}>
-          <input type='text' name='query' value={this.state.query}
+          <input type='text' name='query' value={this.props.store.query}
             onChange={this.onChange} />
           <input type='submit' value='Do it' />
         </form>
-        { this.state.error &&
+        <input type='button' value='Next page' onClick={this.nextPage.bind(this)}/>
+        <input type='button' value='Prev page' onClick={this.prevPage.bind(this)}/>
+        { this.props.store.error &&
           <div>
             <p>Error</p>
-            <p>{this.state.error}</p>
+            <p>{this.props.store.error}</p>
           </div>
         }
-        { this.state.results &&
+        { this.props.store.results &&
           <div>
             <h2>Results</h2>
-            {this.state.results.map(function(result, i) {
+            {this.props.store.results.map(function(result, i) {
               return <div key={result.id} style={{float:'left', margin:'5px'}}>
                 <img src={result.images.fixed_height_small.url} />
               </div>
