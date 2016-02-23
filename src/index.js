@@ -7,6 +7,7 @@ import { combineReducers, createStore, applyMiddleware } from 'redux'
 import * as reducers from './reducers'
 import thunkMiddleware from 'redux-thunk'
 import {Component} from 'react'
+var fjs = require("functional.js");
 
 class Provider extends Component {
   getChildContext() {
@@ -23,8 +24,13 @@ Provider.childContextTypes = {
 }
 
 const reducer = combineReducers(reducers)
-const store = createStore(reducer, applyMiddleware(
-  thunkMiddleware))
+
+const finalCreateStore = fjs.compose(
+  applyMiddleware(thunkMiddleware),
+  typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
+)(createStore);
+
+const store = finalCreateStore(reducer)
 
 ReactDOM.render(
   <Provider store={store}>
