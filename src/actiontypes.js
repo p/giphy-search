@@ -1,2 +1,5 @@
 export const NEXT_PAGE = 'next page'
 export const PREV_PAGE = 'prev page'
+export const FETCH_GIFS_REQUEST = 'fetch gifs request'
+export const FETCH_GIFS_SUCCESS = 'fetch gifs success'
+export const FETCH_GIFS_FAILURE = 'fetch gifs failure'
