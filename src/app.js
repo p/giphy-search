@@ -53,9 +53,9 @@ class App extends Component {
   @keydown('n')
   nextPage() {
   //alert(1)
-  debugger
+  //debugger
     const {store} = this.props
-    store.dispatch({type: types.NEXT_PAGE})
+    this.props.store.dispatch(actions.nextPage())
     return
     if (this.state.results === undefined) {
       return;
@@ -67,7 +67,7 @@ class App extends Component {
   @keydown('p')
   prevPage() {
     const {store} = this.props
-    store.dispatch({type: types.PREV_PAGE})
+    store.dispatch(actions.prevPage())
     return
     if (this.state.offset != new_offset) {
       this.setState({offset: new_offset});

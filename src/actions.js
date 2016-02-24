@@ -8,23 +8,32 @@ export function setQuery(query) {
 }
 
 export function nextPage() {
-  return {type: types.NEXT_PAGE}
+  return (dispatch, getState) => {
+    const offset = getState().get('offset')
+    const nextOffset = offset+25
+    dispatch(giphySearch(getState().get('query'), nextOffset))
+    return {type: ''}
+  }
 }
 
 export function prevPage() {
-  return {type: types.PREV_PAGE}
-}
-
-export function searchGiphy() {
-  return dispatch => {
-    dispatch({type: types.FETCH_GIFS_REQUEST})
+  return (dispatch, getState) => {
+    const offset = getState().get('offset')
+    let nextOffset = offset-25
+    if (nextOffset < 0) {
+      nextOffset = 0
+    }
+    if (nextOffset !== offset) {
+      dispatch(giphySearch(getState().get('query'), nextOffset))
+    }
+    return {type: ''}
   }
 }
 
 function realGiphySearch(dispatch, query, offset) {
   return fetch(`http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${Config.api_key}&offset=${offset}`)
     .then(response => response.json())
-    .then(json => {dispatch(fetchGifsSuccess(json.data))})
+    .then(json => {dispatch(fetchGifsSuccess(json.data, query, offset))})
 }
 
 function fakeGiphySearch(dispatch, query, offset) {
@@ -36,7 +45,7 @@ function fakeGiphySearch(dispatch, query, offset) {
     )
   }).then(json => {
       //debugger
-      dispatch(fetchGifsSuccess(json))
+      dispatch(fetchGifsSuccess(json, query, offset))
       }
     )
   return promise
@@ -58,9 +67,9 @@ export function fetchGifsRequest() {
   }
 }
 
-export function fetchGifsSuccess(results) {
+export function fetchGifsSuccess(results, query, offset) {
 //debugger
-  return {type: types.FETCH_GIFS_SUCCESS, results: results}
+  return {type: types.FETCH_GIFS_SUCCESS, results: results, query: query, offset: offset}
 }
 
 export function fetchGifsFailure() {

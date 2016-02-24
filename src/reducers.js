@@ -57,7 +57,8 @@ export default function reduce(state=initialState, action) {
 
     case types.FETCH_GIFS_SUCCESS:
     //debugger
-      return state.merge({searching: false, results: action.results})
+      return state.merge({searching: false, results: action.results,
+        query: action.query, offset: action.offset})
 
 
     default:
