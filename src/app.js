@@ -24,7 +24,8 @@ class App extends Component {
 
   onSubmit = (e) => {
     e.preventDefault()
-    this.props.store.dispatch(actions.giphySearch(this.props.query, this.props.offset))
+    this.props.store.dispatch(actions.giphySearch(this.props.fake,
+      this.props.query, this.props.offset))
   };
 
   @keydown('n')

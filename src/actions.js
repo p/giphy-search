@@ -12,7 +12,7 @@ export function nextPage() {
   return (dispatch, getState) => {
     const offset = getState().get('offset')
     const nextOffset = offset+25
-    dispatch(giphySearch(getState().get('query'), nextOffset))
+    dispatch(giphySearch(getState().get('fake'), getState().get('query'), nextOffset))
     return {type: ''}
   }
 }
@@ -25,7 +25,7 @@ export function prevPage() {
       nextOffset = 0
     }
     if (nextOffset !== offset) {
-      dispatch(giphySearch(getState().get('query'), nextOffset))
+      dispatch(giphySearch(getState().get('fake'), getState().get('query'), nextOffset))
     }
     return {type: ''}
   }
@@ -50,10 +50,15 @@ function fakeGiphySearch(dispatch, query, offset) {
   return promise
 }
 
-export function giphySearch(query, offset) {
+export function giphySearch(fake, query, offset) {
   return dispatch => {
-    //fakeGiphySearch(dispatch, query, offset)
-    realGiphySearch(dispatch, query, offset)
+    let method
+    if (fake) {
+      method = fakeGiphySearch
+    } else {
+      method = realGiphySearch
+    }
+    method(dispatch, query, offset)
     dispatch({type: types.FETCH_GIFS_REQUEST})
   }
 }
