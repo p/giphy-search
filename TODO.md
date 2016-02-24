@@ -1,4 +1,7 @@
 - routing and url updates
 - deploy to a server, gh pages?
 - buildploy transform?
+- add static file support
 - add some locally reachable fake pics
+- return more fake pics (10-25)
+- create bundle for github pages via browserify?
