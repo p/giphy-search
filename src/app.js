@@ -14,18 +14,7 @@ import { connect } from 'react-redux'
 }))
 class App extends Component {
   constructor(props) {
-  //debugger
     super(props);
-    //this.store = props.store
-    //this.state = {query: "", error: false, results: undefined, offset: 0};
-  }
-
-  componentWillReceiveProps(props) {
-    //debugger;
-  }
-
-  componentDidMount() {
-    //debugger;
   }
 
   onChange = (e) => {
@@ -35,60 +24,21 @@ class App extends Component {
   onSubmit = (e) => {
     e.preventDefault()
     this.props.store.dispatch(actions.giphySearch(this.props.query, this.props.offset))
-    return
-  debugger
-    this.setState({offset: 0});
-    this.search();
-
-    e.preventDefault();
-  };
-
-  onResults = (err, res) => {
-    if (err) {
-      this.setState({error: err});
-    } else {
-      this.setState({results: res.body.data});
-    }
   };
 
   @keydown('n')
   nextPage() {
-  //alert(1)
-  //debugger
     const {store} = this.props
     this.props.store.dispatch(actions.nextPage())
-    return
-    if (this.state.results === undefined) {
-      return;
-    }
-    this.setState({offset: this.state.offset+25});
-    this.search();
   }
 
   @keydown('p')
   prevPage() {
     const {store} = this.props
     store.dispatch(actions.prevPage())
-    return
-    if (this.state.offset != new_offset) {
-      this.setState({offset: new_offset});
-      this.search();
-    }
-  }
-
-  search() {
-  //debugger;
-  this.props.store.dispatch(actions.nextPage())
-  return
-    const query = this.state.query;
-    const api_key = 'dc6zaTOxFJmzC';
-    request.get('http://api.giphy.com/v1/gifs/search').
-      query({q: query, api_key: api_key, offset: this.state.offset}).
-      end(this.onResults);
   }
 
   render() {
-  //debugger
     let results = this.props.results.toJS()
     return (
       <div>
