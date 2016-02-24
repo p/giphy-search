@@ -6,10 +6,10 @@ import keydown from 'react-keydown';
 import { connect } from 'react-redux'
 
 @connect(state => ({
-  query: state.default.get('query'),
-  offset: state.default.get('offset'),
-  searching: state.default.get('searching'),
-  results: state.default.get('results'),
+  query: state.get('query'),
+  offset: state.get('offset'),
+  searching: state.get('searching'),
+  results: state.get('results'),
 }))
 class App extends Component {
   constructor(props) {
