@@ -5,8 +5,9 @@ import * as actions from './actions'
 const initialState = Immutable.Map({
   query: "",
   offset: 0,
-  results: undefined,
+  results: Immutable.fromJS([]),
   error: false,
+  searching: false,
 });
 
 export default function reduce(state=initialState, action) {
@@ -44,7 +45,19 @@ export default function reduce(state=initialState, action) {
       }
       return state.merge({offset: prevOffset})
 
-    //case types.FETCH_GIFS_SUCCESS:
+    case types.SEARCH_GIPHY:
+      debugger
+      let query = state.toJS().query
+      //giphySearch().then(
+      return state
+
+    case types.FETCH_GIFS_REQUEST:
+    debugger
+      return state.merge({searching: true})
+
+    case types.FETCH_GIFS_SUCCESS:
+    debugger
+      return state.merge({searching: false, results: action.results})
 
 
     default:

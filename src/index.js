@@ -3,12 +3,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 import { combineReducers, createStore, applyMiddleware } from 'redux'
-//import { Provider } from 'react-redux'
+import { Provider } from 'react-redux'
 import * as reducers from './reducers'
 import thunkMiddleware from 'redux-thunk'
 import {Component} from 'react'
 var fjs = require("functional.js");
 
+/*
 class Provider extends Component {
   getChildContext() {
     return {store: this.props.store}
@@ -22,6 +23,7 @@ class Provider extends Component {
 Provider.childContextTypes = {
   store: React.PropTypes.object
 }
+*/
 
 const reducer = combineReducers(reducers)
 
@@ -31,6 +33,10 @@ const finalCreateStore = fjs.compose(
 )(createStore);
 
 const store = finalCreateStore(reducer)
+
+if (typeof window === 'object') {
+  window.store = store
+}
 
 // state:
 // query

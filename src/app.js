@@ -3,9 +3,14 @@ import * as types from './actiontypes'
 import React, { Component } from 'react';
 import request from 'superagent';
 import keydown from 'react-keydown';
-import connect from 'react-redux'
+import { connect } from 'react-redux'
 
-//@connect(state => {debugger;return state})
+@connect(state => ({
+  query: state.default.get('query'),
+  offset: state.default.get('offset'),
+  searching: state.default.get('searching'),
+  results: state.default.get('results'),
+}))
 class App extends Component {
   constructor(props) {
   //debugger
@@ -27,7 +32,9 @@ class App extends Component {
   };
 
   onSubmit = (e) => {
-  e.preventDefault()
+    e.preventDefault()
+    this.props.store.dispatch(actions.giphySearch(this.props.query, this.props.offset))
+    return
   debugger
     this.setState({offset: 0});
     this.search();
@@ -81,14 +88,19 @@ class App extends Component {
 
   render() {
   //debugger
+    let results = this.props.results.toJS()
     return (
       <div>
         <h1>Giphy Search</h1>
         <form onSubmit={this.onSubmit}>
-          <input type='text' name='query' value={this.props.store.query}
+          <input type='text' name='query' value={this.props.query}
             onChange={this.onChange} />
           <input type='submit' value='Do it' />
         </form>
+        <p>Query {this.props.query}</p>
+        {this.props.searching &&
+          <p>Searching</p>
+        }
         <input type='button' value='Next page' onClick={this.nextPage.bind(this)}/>
         <input type='button' value='Prev page' onClick={this.prevPage.bind(this)}/>
         { this.props.store.error &&
@@ -97,10 +109,10 @@ class App extends Component {
             <p>{this.props.store.error}</p>
           </div>
         }
-        { this.props.store.results &&
+        { results.length > 0 &&
           <div>
             <h2>Results</h2>
-            {this.props.store.results.map(function(result, i) {
+            {results.map(function(result, i) {
               return <div key={result.id} style={{float:'left', margin:'5px'}}>
                 <img src={result.images.fixed_height_small.url} />
               </div>
