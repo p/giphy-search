@@ -1,3 +1,5 @@
 - routing and url updates
 - deploy to a server, gh pages?
 - buildploy transform?
+- add local storage, search real/fake giphy toggler
+- add some locally reachable fake pics
