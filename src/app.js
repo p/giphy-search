@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
   offset: state.get('offset'),
   searching: state.get('searching'),
   results: state.get('results'),
+  error: state.get('error'),
 }))
 class App extends Component {
   constructor(props) {
@@ -97,9 +98,11 @@ class App extends Component {
             onChange={this.onChange} />
           <input type='submit' value='Do it' />
         </form>
-        <p>Query {this.props.query}</p>
         {this.props.searching &&
           <p>Searching</p>
+        }
+        {this.props.error &&
+          <p>There was an error searching Giphy! What now??</p>
         }
         <input type='button' value='Next page' onClick={this.nextPage.bind(this)}/>
         <input type='button' value='Prev page' onClick={this.prevPage.bind(this)}/>
