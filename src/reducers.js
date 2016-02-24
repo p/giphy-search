@@ -17,7 +17,7 @@ export default function reduce(state=initialState, action) {
       return state.merge({query: action.query})
       
     case types.NEXT_PAGE:
-    debugger
+    //debugger
       if (state.results === undefined) {
         //return state
       }
@@ -46,17 +46,17 @@ export default function reduce(state=initialState, action) {
       return state.merge({offset: prevOffset})
 
     case types.SEARCH_GIPHY:
-      debugger
+      //debugger
       let query = state.toJS().query
       //giphySearch().then(
       return state
 
     case types.FETCH_GIFS_REQUEST:
-    debugger
+    //debugger
       return state.merge({searching: true})
 
     case types.FETCH_GIFS_SUCCESS:
-    debugger
+    //debugger
       return state.merge({searching: false, results: action.results})
 
 

@@ -76,7 +76,7 @@ class App extends Component {
   }
 
   search() {
-  debugger;
+  //debugger;
   this.props.store.dispatch(actions.nextPage())
   return
     const query = this.state.query;
