@@ -1,6 +1,7 @@
 import Immutable from 'immutable'
 import * as types from './actiontypes'
 import * as actions from './actions'
+import {load} from './persist'
 
 const initialState = Immutable.Map({
   query: "",
@@ -8,6 +9,7 @@ const initialState = Immutable.Map({
   results: Immutable.fromJS([]),
   error: false,
   searching: false,
+  fake: load('fake') == 'true',
 });
 
 export default function reduce(state=initialState, action) {
@@ -24,6 +26,9 @@ export default function reduce(state=initialState, action) {
 
     case types.FETCH_GIFS_FAILURE:
       return state.merge({searching: false, error: true})
+
+    case types.FAKE_CHANGE:
+      return state.merge({fake: action.fake})
 
     default:
       return state

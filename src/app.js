@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
   searching: state.get('searching'),
   results: state.get('results'),
   error: state.get('error'),
+  fake: state.get('fake'),
 }))
 class App extends Component {
   constructor(props) {
@@ -37,12 +38,23 @@ class App extends Component {
     const {store} = this.props
     store.dispatch(actions.prevPage())
   }
+  
+  onFakeChange = (e) => {
+    this.props.store.dispatch(actions.fake(e.target.checked))
+    //debugger
+  };
 
   render() {
     let results = this.props.results.toJS()
+    let fake = this.props.fake
     return (
       <div>
         <h1>Giphy Search</h1>
+        <input type='checkbox' id='fake-requests' onChange={this.onFakeChange}
+          checked={fake}/>
+        <label htmlFor='fake-requests'>
+          Fake requests
+        </label>
         <form onSubmit={this.onSubmit}>
           <input type='text' name='query' value={this.props.query}
             onChange={this.onChange} />

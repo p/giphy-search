@@ -2,6 +2,7 @@ import * as types from './actiontypes'
 import fetch from 'isomorphic-fetch'
 import 'promise'
 import Config from './config'
+import {store} from './persist'
 
 export function setQuery(query) {
   return {type: types.SET_QUERY, query}
@@ -63,4 +64,11 @@ export function fetchGifsSuccess(results, query, offset) {
 
 export function fetchGifsFailure() {
   return {type: types.FETCH_GIFS_FAILURE}
+}
+
+export function fake(fakeStatus) {
+  return dispatch => {
+    store('fake', fakeStatus)
+    dispatch({type: types.FAKE_CHANGE, fake: fakeStatus})
+  }
 }
