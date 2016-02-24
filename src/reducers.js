@@ -15,9 +15,6 @@ export default function reduce(state=initialState, action) {
     case types.SET_QUERY:
       return state.merge({query: action.query})
       
-    case types.SEARCH_GIPHY:
-      return state
-
     case types.FETCH_GIFS_REQUEST:
       return state.merge({searching: true})
 
