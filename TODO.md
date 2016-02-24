@@ -1,0 +1,3 @@
+- routing and url updates
+- deploy to a server, gh pages?
+- buildploy transform?
