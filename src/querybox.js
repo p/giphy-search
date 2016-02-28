@@ -1,3 +1,4 @@
+import Mousetrap from 'mousetrap'
 import React, { Component } from 'react';
 import ReactDom from 'react-dom'
 import { connect } from 'react-redux'
@@ -15,6 +16,14 @@ class QueryBox extends Component {
     }
   }
   
+  componentDidMount() {
+    Mousetrap.bind('esc', this.hide)
+  }
+  
+  componentWillUnmount() {
+    Mousetrap.unbind(['esc'])
+  }
+  
   onChange = (e) => {
     this.props.store.dispatch(actions.setQuery(e.target.value))
   };
@@ -25,13 +34,14 @@ class QueryBox extends Component {
     return false
   };
   
-  onClick = (e) => {
+  hide = (e) => {
+    e.preventDefault()
     this.props.store.dispatch(actions.hideQueryBox())
   };
   
   render() {
     // why does having onsubmit on the form still submit the form?
-    return <div style={queryBoxStyle} onClick={this.onClick}>
+    return <div style={queryBoxStyle} onClick={this.hide}>
       <form onSubmit={this.onSubmit} style={formStyle}>
         <input
           ref={ this.focusInput }
