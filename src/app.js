@@ -46,44 +46,65 @@ class App extends Component {
     return (
       <div onKeyDown={this.onKeyDown}>
         <h1>Giphy Search</h1>
-        <input type='checkbox' id='fake-requests' onChange={this.onFakeChange}
-          checked={fake}/>
-        <label htmlFor='fake-requests'>
-          Fake requests
-        </label>
-        <form onSubmit={this.onSubmit}>
-          <input type='text' name='query' value={this.props.query}
-            onChange={this.onChange} />
-          <input type='submit' value='Do it' />
-        </form>
+        <div>
+          <form onSubmit={this.onSubmit} style={formStyle}>
+            <input type='text' name='query' value={this.props.query}
+              onChange={this.onChange} />
+            <input type='submit' value='Do it' />
+          </form>
+          <input type='button' value='Next page' onClick={this.nextPage.bind(this)}
+            style={nextStyle} />
+          <input type='button' value='Prev page' onClick={this.prevPage.bind(this)}
+            style={formStyle} />
+          <label htmlFor='fake-requests' style={fakeStyle}>
+            <input type='checkbox' id='fake-requests' onChange={this.onFakeChange}
+              checked={fake}/>
+            Fake requests
+          </label>
+        </div>
+        
         {this.props.searching &&
           <p>Searching</p>
         }
         {this.props.error &&
           <p>There was an error searching Giphy! What now??</p>
         }
-        <input type='button' value='Next page' onClick={this.nextPage.bind(this)}/>
-        <input type='button' value='Prev page' onClick={this.prevPage.bind(this)}/>
         { this.props.store.error &&
           <div>
             <p>Error</p>
             <p>{this.props.store.error}</p>
           </div>
         }
-        { results.length > 0 &&
-          <div>
-            <h2>Results</h2>
-            {results.map(function(result, i) {
-              return <div key={result.id} style={{float:'left', margin:'5px'}}>
-                <img src={result.images.fixed_height_small.url} />
-              </div>
-            })}
-          </div>
-        }
+        
+        <div style={{clear:'both'}}>
+          { results.length > 0 &&
+            <div>
+              <h2>Results</h2>
+              {results.map(function(result, i) {
+                return <div key={result.id} style={{float:'left', margin:'5px'}}>
+                  <img src={result.images.fixed_height_small.url} />
+                </div>
+              })}
+            </div>
+          }
+        </div>
         {this.props.showingQueryBox && <QueryBox store={this.props.store}/>}
       </div>
     );
   }
+}
+
+const formStyle = {
+  float: 'left',
+}
+
+const fakeStyle = {
+  float: 'right',
+}
+
+const nextStyle = {
+  float: 'left',
+  marginLeft: '1em',
 }
 
 export default App;
