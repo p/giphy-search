@@ -4,6 +4,7 @@
   "description": "Boilerplate for ReactJS project with hot code reloading",
   "scripts": {
     "start": "node server.js",
+    "deploy": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
     "lint": "eslint src"
   },
   "repository": {
