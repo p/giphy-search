@@ -1,8 +1,8 @@
+import QueryBox from './querybox'
 import * as actions from './actions'
 import * as types from './actiontypes'
 import React, { Component } from 'react';
 import request from 'superagent';
-import keydown from 'react-keydown';
 import { connect } from 'react-redux'
 
 @connect(state => ({
@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
   results: state.get('results'),
   error: state.get('error'),
   fake: state.get('fake'),
+  showingQueryBox: state.get('showingQueryBox'),
 }))
 class App extends Component {
   constructor(props) {
@@ -24,32 +25,26 @@ class App extends Component {
 
   onSubmit = (e) => {
     e.preventDefault()
-    this.props.store.dispatch(actions.giphySearch(this.props.fake,
-      this.props.query, this.props.offset))
+    this.props.store.dispatch(actions.giphySearch())
   };
-
-  @keydown('n')
+  
   nextPage() {
-    const {store} = this.props
     this.props.store.dispatch(actions.nextPage())
   }
 
-  @keydown('p')
   prevPage() {
-    const {store} = this.props
-    store.dispatch(actions.prevPage())
+    this.props.store.dispatch(actions.prevPage())
   }
   
   onFakeChange = (e) => {
     this.props.store.dispatch(actions.fake(e.target.checked))
-    //debugger
   };
 
   render() {
     let results = this.props.results.toJS()
     let fake = this.props.fake
     return (
-      <div>
+      <div onKeyDown={this.onKeyDown}>
         <h1>Giphy Search</h1>
         <input type='checkbox' id='fake-requests' onChange={this.onFakeChange}
           checked={fake}/>
@@ -85,9 +80,10 @@ class App extends Component {
             })}
           </div>
         }
+        {this.props.showingQueryBox && <QueryBox store={this.props.store}/>}
       </div>
     );
   }
 }
 
-export default App;;
+export default App;

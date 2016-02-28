@@ -50,8 +50,11 @@ function fakeGiphySearch(dispatch, query, offset) {
   return promise
 }
 
-export function giphySearch(fake, query, offset) {
-  return dispatch => {
+export function giphySearch() {
+  return (dispatch, getState) => {
+    const query = getState().get('query')
+    const offset = getState().get('offset')
+    const fake = getState().get('fake')
     let method
     if (fake) {
       method = fakeGiphySearch
@@ -76,4 +79,12 @@ export function fake(fakeStatus) {
     store('fake', fakeStatus)
     dispatch({type: types.FAKE_CHANGE, fake: fakeStatus})
   }
+}
+
+export function showQueryBox() {
+  return {type: types.SHOW_QUERY_BOX}
+}
+
+export function hideQueryBox() {
+  return {type: types.HIDE_QUERY_BOX}
 }

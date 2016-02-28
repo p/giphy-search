@@ -10,6 +10,7 @@ const initialState = Immutable.Map({
   error: false,
   searching: false,
   fake: load('fake') == 'true',
+  showingQueryBox: false,
 });
 
 export default function reduce(state=initialState, action) {
@@ -29,6 +30,12 @@ export default function reduce(state=initialState, action) {
 
     case types.FAKE_CHANGE:
       return state.merge({fake: action.fake})
+
+    case types.SHOW_QUERY_BOX:
+      return state.merge({showingQueryBox: true})
+
+    case types.HIDE_QUERY_BOX:
+      return state.merge({showingQueryBox: false})
 
     default:
       return state
