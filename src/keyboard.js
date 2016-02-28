@@ -5,6 +5,7 @@ import Mousetrap from 'mousetrap'
 
 @connect(state => ({
   query: state.get('query'),
+  showingQueryBox: state.get('showingQueryBox'),
 }))
 class Keyboard extends Component {
   componentDidMount() {
@@ -18,18 +19,24 @@ class Keyboard extends Component {
   }
   
   showQueryBox = (e) => {
-    e.preventDefault()
-    this.props.store.dispatch(actions.showQueryBox())
+    if (!this.props.showingQueryBox) {
+      e.preventDefault()
+      this.props.store.dispatch(actions.showQueryBox())
+    }
   };
   
   nextPage = (e) => {
-    e.preventDefault()
-    this.props.store.dispatch(actions.nextPage())
+    if (!this.props.showingQueryBox) {
+      e.preventDefault()
+      this.props.store.dispatch(actions.nextPage())
+    }
   };
   
   prevPage = (e) => {
-    e.preventDefault()
-    this.props.store.dispatch(actions.prevPage())
+    if (!this.props.showingQueryBox) {
+      e.preventDefault()
+      this.props.store.dispatch(actions.prevPage())
+    }
   };
   
   render() {
