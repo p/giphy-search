@@ -6,13 +6,13 @@ import request from 'superagent';
 import { connect } from 'react-redux'
 
 @connect(state => ({
-  query: state.get('query'),
-  offset: state.get('offset'),
-  searching: state.get('searching'),
-  results: state.get('results'),
-  error: state.get('error'),
-  fake: state.get('fake'),
-  showingQueryBox: state.get('showingQueryBox'),
+  query: state.app.get('query'),
+  offset: state.app.get('offset'),
+  searching: state.app.get('searching'),
+  results: state.app.get('results'),
+  error: state.app.get('error'),
+  fake: state.app.get('fake'),
+  showingQueryBox: state.app.get('showingQueryBox'),
 }))
 class App extends Component {
   constructor(props) {

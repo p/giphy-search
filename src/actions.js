@@ -10,7 +10,7 @@ export function setQuery(query) {
 
 export function nextPage() {
   return (dispatch, getState) => {
-    const offset = getState().get('offset')
+    const offset = getState().app.get('offset')
     const nextOffset = offset+25
     dispatch(giphySearch({offset: nextOffset}))
     return {type: types.SET_OFFSET, offset: nextOffset}
@@ -19,7 +19,7 @@ export function nextPage() {
 
 export function prevPage() {
   return (dispatch, getState) => {
-    const offset = getState().get('offset')
+    const offset = getState().app.get('offset')
     let nextOffset = offset-25
     if (nextOffset < 0) {
       nextOffset = 0
@@ -53,14 +53,14 @@ function fakeGiphySearch(dispatch, query, offset) {
 export function giphySearch(options) {
   options = options || {}
   return (dispatch, getState) => {
-    const query = options.query || getState().get('query')
+    const query = options.query || getState().app.get('query')
     var offset
     if (options.offset !== undefined) {
       offset = options.offset
     } else {
-      offset = getState().get('offset')
+      offset = getState().app.get('offset')
     }
-    const fake = getState().get('fake')
+    const fake = getState().app.get('fake')
     let method
     if (fake) {
       method = fakeGiphySearch

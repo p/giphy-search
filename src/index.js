@@ -15,7 +15,11 @@ const finalCreateStore = fjs.compose(
   typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
 )(createStore);
 
-const store = finalCreateStore(reducer)
+const reducers = combineReducers({
+  app: reducer,
+})
+
+const store = finalCreateStore(reducers)
 
 if (typeof window === 'object') {
   window.store = store

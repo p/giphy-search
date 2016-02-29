@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import Mousetrap from 'mousetrap'
 
 @connect(state => ({
-  query: state.get('query'),
-  showingQueryBox: state.get('showingQueryBox'),
+  query: state.app.get('query'),
+  showingQueryBox: state.app.get('showingQueryBox'),
 }))
 class Keyboard extends Component {
   componentDidMount() {

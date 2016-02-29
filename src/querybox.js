@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as actions from './actions'
 
 @connect(state => ({
-  query: state.get('query'),
+  query: state.app.get('query'),
 }))
 class QueryBox extends Component {
   focusInput(inputComponent) {
