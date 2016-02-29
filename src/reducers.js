@@ -18,6 +18,9 @@ export default function reduce(state=initialState, action) {
     case types.SET_QUERY:
       return state.merge({query: action.query})
       
+    case types.SET_OFFSET:
+      return state.merge({offset: action.offset})
+      
     case types.FETCH_GIFS_REQUEST:
       return state.merge({searching: true})
 
