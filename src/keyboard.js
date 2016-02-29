@@ -8,6 +8,10 @@ import Mousetrap from 'mousetrap'
   showingQueryBox: state.app.get('showingQueryBox'),
 }))
 class Keyboard extends Component {
+  constructor(props) {
+    super(props);
+  }
+  
   componentDidMount() {
     Mousetrap.bind('s', this.showQueryBox)
     Mousetrap.bind('n', this.nextPage)
@@ -21,21 +25,21 @@ class Keyboard extends Component {
   showQueryBox = (e) => {
     if (!this.props.showingQueryBox) {
       e.preventDefault()
-      this.props.store.dispatch(actions.showQueryBox())
+      this.props.dispatch(actions.showQueryBox())
     }
   };
   
   nextPage = (e) => {
     if (!this.props.showingQueryBox) {
       e.preventDefault()
-      this.props.store.dispatch(actions.nextPage())
+      this.props.dispatch(actions.nextPage())
     }
   };
   
   prevPage = (e) => {
     if (!this.props.showingQueryBox) {
       e.preventDefault()
-      this.props.store.dispatch(actions.prevPage())
+      this.props.dispatch(actions.prevPage())
     }
   };
   

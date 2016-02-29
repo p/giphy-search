@@ -27,7 +27,7 @@ if (typeof window === 'object') {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Keyboard store={store}>
-      <App store={store} />
+    <Keyboard>
+      <App />
     </Keyboard>
   </Provider>, document.getElementById('root'));

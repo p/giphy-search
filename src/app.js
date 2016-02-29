@@ -20,24 +20,24 @@ class App extends Component {
   }
 
   onChange = (e) => {
-    this.props.store.dispatch(actions.setQuery(e.target.value))
+    this.props.dispatch(actions.setQuery(e.target.value))
   };
 
   onSubmit = (e) => {
     e.preventDefault()
-    this.props.store.dispatch(actions.giphySearch({offset: 0}))
+    this.props.dispatch(actions.giphySearch({offset: 0}))
   };
   
   nextPage() {
-    this.props.store.dispatch(actions.nextPage())
+    this.props.dispatch(actions.nextPage())
   }
 
   prevPage() {
-    this.props.store.dispatch(actions.prevPage())
+    this.props.dispatch(actions.prevPage())
   }
   
   onFakeChange = (e) => {
-    this.props.store.dispatch(actions.fake(e.target.checked))
+    this.props.dispatch(actions.fake(e.target.checked))
   };
 
   render() {
@@ -47,7 +47,7 @@ class App extends Component {
       <div onKeyDown={this.onKeyDown}>
         <h1>Giphy Search</h1>
         <div>
-          <form onSubmit={this.onSubmit} style={formStyle}>
+          <form onSubmit={this.onSubmit.bind(this)} style={formStyle}>
             <input type='text' name='query' value={this.props.query}
               onChange={this.onChange} />
             <input type='submit' value='Do it' />
@@ -69,10 +69,10 @@ class App extends Component {
         {this.props.error &&
           <p>There was an error searching Giphy! What now??</p>
         }
-        { this.props.store.error &&
+        { this.props.error &&
           <div>
             <p>Error</p>
-            <p>{this.props.store.error}</p>
+            <p>{this.props.error}</p>
           </div>
         }
         
