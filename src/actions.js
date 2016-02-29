@@ -54,7 +54,12 @@ export function giphySearch(options) {
   options = options || {}
   return (dispatch, getState) => {
     const query = options.query || getState().get('query')
-    const offset = options.offset || getState().get('offset')
+    var offset
+    if (options.offset !== undefined) {
+      offset = options.offset
+    } else {
+      offset = getState().get('offset')
+    }
     const fake = getState().get('fake')
     let method
     if (fake) {

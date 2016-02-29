@@ -25,7 +25,7 @@ class App extends Component {
 
   onSubmit = (e) => {
     e.preventDefault()
-    this.props.store.dispatch(actions.giphySearch())
+    this.props.store.dispatch(actions.giphySearch({offset: 0}))
   };
   
   nextPage() {
