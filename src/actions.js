@@ -1,9 +1,9 @@
+import { push } from 'react-router-redux'
 import * as types from './actiontypes'
 import fetch from 'isomorphic-fetch'
 import 'promise'
 import Config from './config'
 import {store} from './persist'
-import {hashHistory} from 'react-router'
 
 export function setQuery(query) {
   return {type: types.SET_QUERY, query}
@@ -73,7 +73,7 @@ export function giphySearch(options) {
     if (offset) {
       url += '/' + offset
     }
-    hashHistory.push(url)
+    dispatch(push(url))
     dispatch({type: types.FETCH_GIFS_REQUEST})
   }
 }

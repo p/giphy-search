@@ -4,8 +4,8 @@ import * as actions from './actions'
 import {load} from './persist'
 
 const initialState = Immutable.Map({
-  query: "",
-  offset: 0,
+  query: undefined,
+  offset: undefined,
   results: Immutable.fromJS([]),
   error: false,
   searching: false,

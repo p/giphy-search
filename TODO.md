@@ -1,4 +1,3 @@
-- routing and url updates
 - buildploy transform?
 - add static file support
 - add some locally reachable fake pics

@@ -6,9 +6,17 @@ import React, { Component } from 'react';
 import request from 'superagent';
 import { connect } from 'react-redux'
 
-@connect(state => ({
-  query: state.app.get('query'),
-  offset: state.app.get('offset'),
+function combineRoutableProp(propName, state, params) {
+  let stateValue = state.app.get(propName)
+  if (stateValue === undefined) {
+    stateValue = params[propName]
+  }
+  return stateValue
+}
+
+@connect((state, ownProps) => ({
+  query: combineRoutableProp('query', state, ownProps.params),
+  offset: combineRoutableProp('offset', state, ownProps.params),
   searching: state.app.get('searching'),
   results: state.app.get('results'),
   error: state.app.get('error'),
