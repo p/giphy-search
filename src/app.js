@@ -1,3 +1,4 @@
+import Keyboard from './keyboard';
 import QueryBox from './querybox'
 import * as actions from './actions'
 import * as types from './actiontypes'
@@ -88,7 +89,8 @@ class App extends Component {
             </div>
           }
         </div>
-        {this.props.showingQueryBox && <QueryBox store={this.props.store}/>}
+        {this.props.showingQueryBox && <QueryBox />}
+        <Keyboard />
       </div>
     );
   }

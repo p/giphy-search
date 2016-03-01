@@ -25,18 +25,18 @@ class QueryBox extends Component {
   }
   
   onChange = (e) => {
-    this.props.store.dispatch(actions.setQuery(e.target.value))
+    this.props.dispatch(actions.setQuery(e.target.value))
   };
 
   onSubmit = (e) => {
     e.preventDefault()
-    this.props.store.dispatch(actions.giphySearch({offset: 0}))
+    this.props.dispatch(actions.giphySearch({offset: 0}))
     return false
   };
   
   hide = (e) => {
     e.preventDefault()
-    this.props.store.dispatch(actions.hideQueryBox())
+    this.props.dispatch(actions.hideQueryBox())
   };
   
   render() {
