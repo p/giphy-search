@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import thunkMiddleware from 'redux-thunk'
 import {Component} from 'react'
-var fjs = require("functional.js");
+import fjs from "functional.js"
 
 const finalCreateStore = fjs.compose(
   applyMiddleware(thunkMiddleware),
