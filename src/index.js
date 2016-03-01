@@ -29,5 +29,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path='/' component={App} />
+      <Route path='/:query' component={App} />
+      <Route path='/:query/:page' component={App} />
     </Router>
   </Provider>, document.getElementById('root'));
