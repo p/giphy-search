@@ -8,6 +8,7 @@ import reducer from './reducers'
 import thunkMiddleware from 'redux-thunk'
 import {Component} from 'react'
 import fjs from "functional.js"
+import { Router, Route, hashHistory } from 'react-router'
 
 const finalCreateStore = fjs.compose(
   applyMiddleware(thunkMiddleware),
@@ -26,5 +27,7 @@ if (typeof window === 'object') {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router history={hashHistory}>
+      <Route path='/' component={App} />
+    </Router>
   </Provider>, document.getElementById('root'));
