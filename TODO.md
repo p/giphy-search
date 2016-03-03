@@ -1,3 +1,4 @@
+- unbreak loading a url with query given, then pressing previous
 - buildploy transform?
 - add static file support
 - add some locally reachable fake pics
