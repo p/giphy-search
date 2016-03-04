@@ -29,6 +29,7 @@ function combineRoutableProp(propName, state, params) {
   error: state.app.get('error'),
   fake: state.app.get('fake'),
   showingQueryBox: state.app.get('showingQueryBox'),
+  hoveredResultId: state.app.get('hoveredResultId'),
 }))
 class App extends Component {
   constructor(props) {
@@ -54,6 +55,16 @@ class App extends Component {
 
   onFakeChange = (e) => {
     this.props.dispatch(actions.fake(e.target.checked))
+  };
+
+  onMouseOver = (result, e) => {
+    this.props.dispatch({type: types.SET_HOVERED_RESULT,
+      hoveredResultId: result.id})
+  };
+
+  onMouseOut = (result, e) => {
+    this.props.dispatch({type: types.SET_HOVERED_RESULT,
+      hoveredResultId: null})
   };
 
   render() {
@@ -97,10 +108,17 @@ class App extends Component {
             <div>
               <h2>Results</h2>
               {results.map(function(result, i) {
-                return <div key={result.id} style={{float:'left', margin:'5px'}}>
-                  <img src={result.images.fixed_height_small.url} />
+                return <div key={result.id} style={{float:'left', margin:'5px'}}
+                  onMouseOver={(e)=>(this.onMouseOver(result, e))}
+                  onMouseOut={(e)=>(this.onMouseOut(result, e))}
+                >
+                  <img src={
+                    this.props.hoveredResultId === result.id ?
+                    result.images.original.url :
+                    result.images.fixed_height_small.url
+                  } />
                 </div>
-              })}
+              }.bind(this))}
             </div>
           }
         </div>
