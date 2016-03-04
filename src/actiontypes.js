@@ -1,4 +1,5 @@
 export const SET_QUERY = 'set query'
+export const SET_SEARCHED_QUERY = 'set searched query'
 export const SET_OFFSET = 'set offset'
 export const NEXT_PAGE = 'next page'
 export const PREV_PAGE = 'prev page'

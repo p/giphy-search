@@ -15,7 +15,14 @@ function combineRoutableProp(propName, state, params) {
 }
 
 @connect((state, ownProps) => ({
-  query: combineRoutableProp('query', state, ownProps.params),
+  query: ((()=> {
+    if (state.app.get('query') === undefined) {
+      return combineRoutableProp('searchedQuery', state, ownProps.params)
+    } else {
+      return state.app.get('query')
+    }
+  })()),
+  searchedQuery: combineRoutableProp('searchedQuery', state, ownProps.params),
   offset: combineRoutableProp('offset', state, ownProps.params),
   searching: state.app.get('searching'),
   results: state.app.get('results'),
@@ -36,7 +43,7 @@ class App extends Component {
     e.preventDefault()
     this.props.dispatch(actions.giphySearch({offset: 0}))
   };
-  
+
   nextPage() {
     this.props.dispatch(actions.nextPage())
   }
@@ -44,7 +51,7 @@ class App extends Component {
   prevPage() {
     this.props.dispatch(actions.prevPage())
   }
-  
+
   onFakeChange = (e) => {
     this.props.dispatch(actions.fake(e.target.checked))
   };
@@ -71,7 +78,7 @@ class App extends Component {
             Fake requests
           </label>
         </div>
-        
+
         {this.props.searching &&
           <p>Searching</p>
         }
@@ -84,7 +91,7 @@ class App extends Component {
             <p>{this.props.error}</p>
           </div>
         }
-        
+
         <div style={{clear:'both'}}>
           { results.length > 0 &&
             <div>

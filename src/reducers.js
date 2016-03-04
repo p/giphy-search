@@ -5,6 +5,7 @@ import {load} from './persist'
 
 const initialState = Immutable.Map({
   query: undefined,
+  searchedQuery: undefined,
   offset: undefined,
   results: Immutable.fromJS([]),
   error: false,
@@ -17,10 +18,13 @@ export default function reduce(state=initialState, action) {
   switch (action.type) {
     case types.SET_QUERY:
       return state.merge({query: action.query})
-      
+
+    case types.SET_SEARCHED_QUERY:
+      return state.merge({searchedQuery: action.searchedQuery})
+
     case types.SET_OFFSET:
       return state.merge({offset: action.offset})
-      
+
     case types.FETCH_GIFS_REQUEST:
       return state.merge({searching: true})
 

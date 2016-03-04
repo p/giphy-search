@@ -16,7 +16,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route path='/' component={App} />
-      <Route path='/:query' component={App} />
-      <Route path='/:query/:page' component={App} />
+      <Route path='/:searchedQuery' component={App} />
+      <Route path='/:searchedQuery/:page' component={App} />
     </Router>
   </Provider>, document.getElementById('root'));

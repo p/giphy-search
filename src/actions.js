@@ -73,6 +73,7 @@ export function giphySearch(options) {
     if (offset) {
       url += '/' + offset
     }
+    dispatch({type: types.SET_SEARCHED_QUERY, searchedQuery: query})
     dispatch(push(url))
     dispatch({type: types.FETCH_GIFS_REQUEST})
   }
