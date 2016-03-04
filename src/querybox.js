@@ -11,7 +11,7 @@ class QueryBox extends Component {
   focusInput(inputComponent) {
     if (inputComponent) {
       const elt = ReactDom.findDOMNode(inputComponent)
-      //elt.focus()
+      elt.focus()
       elt.setSelectionRange(0, elt.value.length)
     }
   }
