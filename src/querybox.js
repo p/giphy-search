@@ -15,15 +15,15 @@ class QueryBox extends Component {
       elt.setSelectionRange(0, elt.value.length)
     }
   }
-  
+
   componentDidMount() {
     Mousetrap.bind('esc', this.hide)
   }
-  
+
   componentWillUnmount() {
     Mousetrap.unbind(['esc'])
   }
-  
+
   onChange = (e) => {
     this.props.dispatch(actions.setQuery(e.target.value))
   };
@@ -33,12 +33,12 @@ class QueryBox extends Component {
     this.props.dispatch(actions.giphySearch({offset: 0}))
     return false
   };
-  
+
   hide = (e) => {
     e.preventDefault()
     this.props.dispatch(actions.hideQueryBox())
   };
-  
+
   render() {
     // why does having onsubmit on the form still submit the form?
     return <div style={queryBoxStyle} onClick={this.hide}>
@@ -63,7 +63,7 @@ const queryBoxStyle = {
   zIndex: 10,
   opacity: 1,
   //pointerEvents: 'none',
-  
+
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
