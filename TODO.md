@@ -3,3 +3,4 @@
 - add static file support
 - add some locally reachable fake pics
 - return more fake pics (10-25)
+- implement quick scaler for static fake images
