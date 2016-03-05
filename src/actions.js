@@ -44,12 +44,23 @@ function realGiphySearch(dispatch, query, offset) {
 
 function fakeGiphySearch(dispatch, query, offset) {
   let promise = new Promise((resolve, reject) => {
-    resolve([{
-      id: 1, images: {fixed_height_small: {url: 'http://tires.tirerack.com/thumb.php?f=//cdn.app.compendium.com/uploads/user/3830be5e-cdd1-486f-a4e4-308bac9591c9/d217dcb7-b47f-4346-b0ae-8f8c650d50b5/Image/20c033b684de91bd9a4a5b720a103383/bfg_gforce_r1_pdpcrop.jpg&s=190'}},
-      }]
+    resolve({data: [
+      {
+      id: 1, images: {fixed_height_small: {url: require('../static/fake/small1.jpg')},
+        original: {url: require('../static/fake/big1.jpg')}},
+      },
+      {
+      id: 2, images: {fixed_height_small: {url: require('../static/fake/small2.jpg')},
+        original: {url: require('../static/fake/big2.jpg')}},
+      },
+      {
+      id: 3, images: {fixed_height_small: {url: require('../static/fake/small3.jpg')},
+        original: {url: require('../static/fake/big3.jpg')}},
+      },
+      ]}
     )
   }).then(json => {
-      dispatch(fetchGifsSuccess(json, query, offset))
+      dispatch(fetchGifsSuccess(json.data, query, offset))
       }
     )
   return promise

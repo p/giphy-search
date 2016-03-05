@@ -20,6 +20,8 @@ module.exports = {
       exclude: [node_modules_dir],      
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
-    }]
+    },
+    {test: /\.(jpg|png|gif)$/, loader: 'file',},
+    ]
   }
 };
