@@ -84,10 +84,12 @@ class App extends Component {
               onChange={this.onChange} />
             <input type='submit' value='Do it' />
           </form>
-          <input type='button' value='Next page' onClick={this.nextPage.bind(this)}
-            style={nextStyle} />
-          <input type='button' value='Prev page' onClick={this.prevPage.bind(this)}
-            style={formStyle} />
+          <div style={buttonBlockStyle}>
+            <input type='button' value='Next page' onClick={this.nextPage.bind(this)}
+              style={buttonStyle} />
+            <input type='button' value='Prev page' onClick={this.prevPage.bind(this)}
+              style={buttonStyle} />
+          </div>
           <label htmlFor='fake-requests' style={fakeStyle}>
             <input type='checkbox' id='fake-requests' onChange={this.onFakeChange}
               checked={fake}/>
@@ -96,7 +98,7 @@ class App extends Component {
         </div>
 
         {this.props.searching &&
-          <p>Searching</p>
+          <p>Loading...</p>
         }
         {this.props.error &&
           <p>There was an error searching Giphy! What now??</p>
@@ -145,6 +147,15 @@ const fakeStyle = {
 const nextStyle = {
   float: 'left',
   marginLeft: '1em',
+}
+
+const buttonStyle = {
+  float: 'left',
+}
+
+const buttonBlockStyle = {
+  float: 'left',
+  margin: '0 1em',
 }
 
 export default App;
