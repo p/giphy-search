@@ -68,13 +68,13 @@ export function giphySearch(options) {
     } else {
       method = realGiphySearch
     }
-    method(dispatch, query, offset)
+    dispatch({type: types.SET_SEARCHED_QUERY, searchedQuery: query})
     let url = '/' + query
     if (offset) {
       url += '/' + offset
     }
-    dispatch({type: types.SET_SEARCHED_QUERY, searchedQuery: query})
     dispatch(push(url))
+    method(dispatch, query, offset)
     dispatch({type: types.FETCH_GIFS_REQUEST})
   }
 }

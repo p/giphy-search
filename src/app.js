@@ -15,6 +15,7 @@ function combineRoutableProp(propName, state, params) {
 }
 
 @connect((state, ownProps) => ({
+  setSearchedQuery: state.app.get('query') === undefined,
   query: ((()=> {
     if (state.app.get('query') === undefined) {
       return combineRoutableProp('searchedQuery', state, ownProps.params)
@@ -34,6 +35,10 @@ function combineRoutableProp(propName, state, params) {
 class App extends Component {
   constructor(props) {
     super(props);
+  }
+  
+  componentDidMount() {
+    this.props.dispatch(actions.giphySearch({query: this.props.query}))
   }
 
   onChange = (e) => {
