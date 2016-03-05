@@ -101,12 +101,13 @@ class App extends Component {
           <p>Loading...</p>
         }
         {this.props.error &&
-          <p>There was an error searching Giphy! What now??</p>
+          <div>
+            <p>There was an error searching Giphy! What now??</p>
+          </div>
         }
         { this.props.error &&
           <div>
-            <p>Error</p>
-            <p>{this.props.error}</p>
+            <p>Error: {this.props.error}</p>
           </div>
         }
 

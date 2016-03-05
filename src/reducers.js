@@ -33,7 +33,7 @@ export default function reduce(state=initialState, action) {
         query: action.query, offset: action.offset})
 
     case types.FETCH_GIFS_FAILURE:
-      return state.merge({searching: false, error: true})
+      return state.merge({searching: false, error: action.error || true})
 
     case types.FAKE_CHANGE:
       return state.merge({fake: action.fake})
