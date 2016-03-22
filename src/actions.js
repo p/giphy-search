@@ -80,21 +80,26 @@ export function giphySearch(options) {
     } else {
       offset = getState().app.get('offset')
     }
-    const fake = getState().app.get('fake')
-    let method
-    if (fake) {
-      method = fakeGiphySearch
+    if (query === '') {
+      offset = 0
+      dispatch(fetchGifsSuccess([], query, offset))
     } else {
-      method = realGiphySearch
+      const fake = getState().app.get('fake')
+      let method
+      if (fake) {
+        method = fakeGiphySearch
+      } else {
+        method = realGiphySearch
+      }
+      dispatch({type: types.SET_SEARCHED_QUERY, searchedQuery: query})
+      method(dispatch, query, offset)
+      dispatch({type: types.FETCH_GIFS_REQUEST})
     }
-    dispatch({type: types.SET_SEARCHED_QUERY, searchedQuery: query})
     let url = '/' + query
     if (offset) {
       url += '/' + offset
     }
     dispatch(push(url))
-    method(dispatch, query, offset)
-    dispatch({type: types.FETCH_GIFS_REQUEST})
   }
 }
 
