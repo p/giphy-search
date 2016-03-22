@@ -36,7 +36,7 @@ class App extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   componentDidMount() {
     this.props.dispatch(actions.giphySearch({query: this.props.query}))
   }
@@ -73,7 +73,12 @@ class App extends Component {
   };
 
   render() {
-    let results = this.props.results.toJS()
+    let results
+    if (this.props.results === undefined) {
+      results = []
+    } else {
+      results = this.props.results.toJS()
+    }
     let fake = this.props.fake
     return (
       <div onKeyDown={this.onKeyDown}>
