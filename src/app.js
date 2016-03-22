@@ -18,12 +18,12 @@ function combineRoutableProp(propName, state, params) {
   setSearchedQuery: state.app.get('query') === undefined,
   query: ((()=> {
     if (state.app.get('query') === undefined) {
-      return combineRoutableProp('searchedQuery', state, ownProps.params)
+      return combineRoutableProp('searchedQuery', state, ownProps.params) || ''
     } else {
-      return state.app.get('query')
+      return state.app.get('query') || ''
     }
   })()),
-  searchedQuery: combineRoutableProp('searchedQuery', state, ownProps.params),
+  searchedQuery: combineRoutableProp('searchedQuery', state, ownProps.params) || '',
   offset: combineRoutableProp('offset', state, ownProps.params),
   searching: state.app.get('searching'),
   results: state.app.get('results'),

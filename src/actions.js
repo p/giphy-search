@@ -70,7 +70,10 @@ function fakeGiphySearch(dispatch, query, offset) {
 export function giphySearch(options) {
   options = options || {}
   return (dispatch, getState) => {
-    const query = options.query || getState().app.get('query')
+    let query = options.query
+    if (query === undefined) {
+      query = getState().app.get('query')
+    }
     var offset
     if (options.offset !== undefined) {
       offset = options.offset
