@@ -39,6 +39,12 @@ class QueryBox extends Component {
     this.props.dispatch(actions.hideQueryBox())
   };
 
+  keyDownHandler = (e) => {
+    if (e.keyCode == 27) {
+      this.hide(e)
+    }
+  };
+
   render() {
     // why does having onsubmit on the form still submit the form?
     return <div style={queryBoxStyle} onClick={this.hide}>
@@ -46,6 +52,7 @@ class QueryBox extends Component {
         <input
           ref={ this.focusInput }
           type='text' name='query' value={this.props.query}
+          onKeyDown={this.keyDownHandler.bind(this)}
           onChange={this.onChange} />
         <input type='submit' value='Search' onClick={this.onSubmit} />
       </form>

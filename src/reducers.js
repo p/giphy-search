@@ -42,7 +42,7 @@ export default function reduce(state=initialState, action) {
       return state.merge({showingQueryBox: true})
 
     case types.HIDE_QUERY_BOX:
-      return state.merge({showingQueryBox: false})
+      return state.merge({showingQueryBox: false, query: action.searchedQuery})
 
     case types.SET_HOVERED_RESULT:
       return state.merge({hoveredResultId: action.hoveredResultId})
