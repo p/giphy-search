@@ -125,11 +125,10 @@ class App extends Component {
                   onMouseOver={(e)=>(this.onMouseOver(result, e))}
                   onMouseOut={(e)=>(this.onMouseOut(result, e))}
                 >
-                  <img src={
-                    this.props.hoveredResultId === result.id ?
-                    result.images.original.url :
-                    result.images.fixed_height_small.url
-                  } />
+                  {this.props.hoveredResultId === result.id ?
+                    this.renderBigImage(result) :
+                    this.renderSmallImage(result)
+                  }
                 </div>
               }.bind(this))}
             </div>
@@ -139,6 +138,14 @@ class App extends Component {
         <Keyboard />
       </div>
     );
+  }
+  
+  renderSmallImage(result) {
+    return <img src={result.images.fixed_height_small.url} />
+  }
+  
+  renderBigImage(result) {
+    return <img src={result.images.original.url} />
   }
 }
 
