@@ -43,22 +43,34 @@ function realGiphySearch(dispatch, query, offset) {
     })
 }
 
+const gif1 = {
+  id: 1, images: {fixed_height_small: {url: require('../static/fake/small1.jpg')},
+    original: {url: require('../static/fake/big1.jpg')}},
+  };
+const gif2 = {
+  id: 2, images: {fixed_height_small: {url: require('../static/fake/small2.jpg')},
+    original: {url: require('../static/fake/big2.jpg')}},
+  };
+const gif3 = {
+  id: 3, images: {fixed_height_small: {url: require('../static/fake/small3.jpg')},
+    original: {url: require('../static/fake/big3.jpg')}},
+  };
+
 function fakeGiphySearch(dispatch, query, offset) {
   let promise = new Promise((resolve, reject) => {
-    resolve({data: [
-      {
-      id: 1, images: {fixed_height_small: {url: require('../static/fake/small1.jpg')},
-        original: {url: require('../static/fake/big1.jpg')}},
-      },
-      {
-      id: 2, images: {fixed_height_small: {url: require('../static/fake/small2.jpg')},
-        original: {url: require('../static/fake/big2.jpg')}},
-      },
-      {
-      id: 3, images: {fixed_height_small: {url: require('../static/fake/small3.jpg')},
-        original: {url: require('../static/fake/big3.jpg')}},
-      },
-      ]}
+    const data = [
+      Object.assign({}, gif1, {id: 10}),
+      Object.assign({}, gif2, {id: 11}),
+      Object.assign({}, gif3, {id: 12}),
+      Object.assign({}, gif1, {id: 13}),
+      Object.assign({}, gif2, {id: 14}),
+      Object.assign({}, gif3, {id: 15}),
+      Object.assign({}, gif2, {id: 16}),
+      Object.assign({}, gif3, {id: 17}),
+      Object.assign({}, gif1, {id: 18}),
+      Object.assign({}, gif2, {id: 19}),
+    ]
+    resolve({data: data}
     )
   }).then(json => {
       dispatch(fetchGifsSuccess(json.data, query, offset))
