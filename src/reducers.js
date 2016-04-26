@@ -12,6 +12,7 @@ const initialState = Immutable.Map({
   searching: false,
   fake: load('fake') == 'true',
   showingQueryBox: false,
+  imageLoadedTime: 0,
 });
 
 export default function reduce(state=initialState, action) {
@@ -46,6 +47,9 @@ export default function reduce(state=initialState, action) {
 
     case types.SET_HOVERED_RESULT:
       return state.merge({hoveredResultId: action.hoveredResultId})
+      
+    case types.IMAGE_LOADED_TIME:
+      return state.merge({imageLoadedTime: action.imageLoadedTime})
 
     default:
       return state

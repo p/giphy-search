@@ -137,3 +137,7 @@ export function showQueryBox() {
 export function hideQueryBox() {
   return {type: types.HIDE_QUERY_BOX}
 }
+
+export function setImageLoadedTime(imageLoadedTime) {
+  return {type: types.IMAGE_LOADED_TIME, imageLoadedTime: imageLoadedTime}
+}

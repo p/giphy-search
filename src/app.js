@@ -31,6 +31,7 @@ function combineRoutableProp(propName, state, params) {
   fake: state.app.get('fake'),
   showingQueryBox: state.app.get('showingQueryBox'),
   hoveredResultId: state.app.get('hoveredResultId'),
+  imageLoadedTime: state.app.get('imageLoadedTime'),
 }))
 class App extends Component {
   constructor(props) {
@@ -68,6 +69,10 @@ class App extends Component {
   };
 
   onMouseOut = (result, e) => {
+    const now = (new Date).valueOf()
+    if (now < this.props.imageLoadedTime + 500) {
+      console.log('overflow')
+    }
     this.props.dispatch({type: types.SET_HOVERED_RESULT,
       hoveredResultId: null})
   };
@@ -145,7 +150,12 @@ class App extends Component {
   }
   
   renderBigImage(result) {
-    return <img src={result.images.original.url} />
+    return <img src={result.images.original.url} onLoad={this.onBigImageLoaded.bind(this)} />
+  }
+  
+  onBigImageLoaded() {
+    const now = (new Date).valueOf()
+    this.props.dispatch(actions.setImageLoadedTime(now))
   }
 }
 
