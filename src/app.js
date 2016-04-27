@@ -32,6 +32,7 @@ function combineRoutableProp(propName, state, params) {
   showingQueryBox: state.app.get('showingQueryBox'),
   hoveredResultId: state.app.get('hoveredResultId'),
   imageLoadedTime: state.app.get('imageLoadedTime'),
+  overflow: state.app.get('overflow'),
 }))
 class App extends Component {
   constructor(props) {
@@ -64,14 +65,23 @@ class App extends Component {
   };
 
   onMouseOver = (result, e) => {
+    if (this.props.overflow) {
+      return
+    }
+    
     this.props.dispatch({type: types.SET_HOVERED_RESULT,
       hoveredResultId: result.id})
   };
 
   onMouseOut = (result, e) => {
+    if (this.props.overflow) {
+      return
+    }
+    
     const now = (new Date).valueOf()
     if (now < this.props.imageLoadedTime + 500) {
-      console.log('overflow')
+      this.props.dispatch(actions.overflow())
+      return
     }
     this.props.dispatch({type: types.SET_HOVERED_RESULT,
       hoveredResultId: null})

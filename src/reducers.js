@@ -13,6 +13,7 @@ const initialState = Immutable.Map({
   fake: load('fake') == 'true',
   showingQueryBox: false,
   imageLoadedTime: 0,
+  overflow: false,
 });
 
 export default function reduce(state=initialState, action) {
@@ -50,6 +51,9 @@ export default function reduce(state=initialState, action) {
       
     case types.IMAGE_LOADED_TIME:
       return state.merge({imageLoadedTime: action.imageLoadedTime})
+      
+    case types.OVERFLOW:
+      return state.merge({overflow: true})
 
     default:
       return state
