@@ -14,6 +14,10 @@ function combineRoutableProp(propName, state, params) {
   return stateValue
 }
 
+function logOverflow(msg) {
+  console.log(msg)
+}
+
 @connect((state, ownProps) => ({
   setSearchedQuery: state.app.get('query') === undefined,
   query: ((()=> {
@@ -66,23 +70,29 @@ class App extends Component {
 
   onMouseOver = (result, e) => {
     if (this.props.overflow) {
+      logOverflow('Mouseover at ' + (new Date).toString() + ': in overflow mode, not expanding')
       return
     }
     
+    logOverflow('Mouseover at ' + (new Date).toString() + ': expanding')
     this.props.dispatch({type: types.SET_HOVERED_RESULT,
       hoveredResultId: result.id})
   };
 
   onMouseOut = (result, e) => {
     if (this.props.overflow) {
+      logOverflow('Mouseout at ' + (new Date).toString() + ': in overflow mode, not collapsing')
       return
     }
     
-    const now = (new Date).valueOf()
+    const now_date = new Date
+    const now = now_date.valueOf()
     if (now < this.props.imageLoadedTime + 500) {
+      logOverflow('Mouseout at ' + now_date.toString() + ': entering overflow mode')
       this.props.dispatch(actions.overflow())
       return
     }
+    logOverflow('Mouseout at ' + now_date.toString() + ': collapsing')
     this.props.dispatch({type: types.SET_HOVERED_RESULT,
       hoveredResultId: null})
   };
@@ -164,8 +174,10 @@ class App extends Component {
   }
   
   onBigImageLoaded() {
-    const now = (new Date).valueOf()
+    const now_date = new Date
+    const now = now_date.valueOf()
     this.props.dispatch(actions.setImageLoadedTime(now))
+    logOverflow('Image loaded at ' + now_date.toString())
   }
 }
 
