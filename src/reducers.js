@@ -55,6 +55,9 @@ export default function reduce(state=initialState, action) {
     case types.OVERFLOW:
       return state.merge({overflow: true})
 
+    case types.CLEAR_OVERFLOW:
+      return state.merge({overflow: false})
+
     default:
       return state
   }

@@ -145,3 +145,7 @@ export function setImageLoadedTime(imageLoadedTime) {
 export function overflow() {
   return {type: types.OVERFLOW}
 }
+
+export function clearOverflow() {
+  return {type: types.CLEAR_OVERFLOW}
+}

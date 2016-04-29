@@ -96,6 +96,13 @@ class App extends Component {
     this.props.dispatch({type: types.SET_HOVERED_RESULT,
       hoveredResultId: null})
   };
+  
+  onClick = (result, e) => {
+    logOverflow('Click at ' + (new Date).toString() + ': clearing overflow')
+    this.props.dispatch(actions.clearOverflow())
+    this.props.dispatch({type: types.SET_HOVERED_RESULT,
+      hoveredResultId: result.id})
+  };
 
   render() {
     let results
@@ -149,6 +156,7 @@ class App extends Component {
                 return <div key={result.id} style={{float:'left', margin:'5px'}}
                   onMouseOver={(e)=>(this.onMouseOver(result, e))}
                   onMouseOut={(e)=>(this.onMouseOut(result, e))}
+                  onClick={(e)=>(this.onClick(result, e))}
                 >
                   {this.props.hoveredResultId === result.id ?
                     this.renderBigImage(result) :
