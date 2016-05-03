@@ -82,8 +82,14 @@ class App extends Component {
       
     let elt = document.querySelector('*[data-id="'+result.id+'"]')
     let bounds = elt.getBoundingClientRect()
-    if (e.screenX < bounds.left || e.screenX > bounds.right ||
-      e.screenY < bounds.top || e.screenY > bounds.bottom)
+    bounds = {
+      left: Math.floor(bounds.left),
+      top: Math.floor(bounds.top),
+      right: Math.ceil(bounds.right),
+      bottom: Math.ceil(bounds.bottom),
+    }
+    if (e.clientX < bounds.left || e.clientX > bounds.right ||
+      e.clientY < bounds.top || e.clientY > bounds.bottom)
     {
       debugger
       console.log('cursor position not within element bounds')
@@ -101,11 +107,11 @@ class App extends Component {
       return
     }
     
-    logOverflow('out at ' + e.screenX + ', ' + e.screenY)
+    logOverflow('out at ' + e.clientX + ', ' + e.clientY)
     if (this.props.hoveredImageBoundingBox) {
       logOverflow('checking for overflow')
-      if (e.screenX > this.props.hoveredImageBoundingBox.left && e.screenX < this.props.hoveredImageBoundingBox.right &&
-        e.screenY > this.props.hoveredImageBoundingBox.top && e.screenY < this.props.hoveredImageBoundingBox.bottom
+      if (e.clientX > this.props.hoveredImageBoundingBox.left && e.clientX < this.props.hoveredImageBoundingBox.right &&
+        e.clientY > this.props.hoveredImageBoundingBox.top && e.clientY < this.props.hoveredImageBoundingBox.bottom
       ) {
         logOverflow('Mouseout at ' + now_date.toString() + ': entering overflow mode via position')
         this.props.dispatch(actions.overflow())
