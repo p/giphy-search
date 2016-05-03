@@ -37,6 +37,7 @@ function logOverflow(msg) {
   hoveredResultId: state.app.get('hoveredResultId'),
   imageLoadedTime: state.app.get('imageLoadedTime'),
   overflow: state.app.get('overflow'),
+  hoveredImageBoundingBox: state.app.get('hoveredImageBoundingBox'),
 }))
 class App extends Component {
   constructor(props) {
@@ -74,18 +75,39 @@ class App extends Component {
       return
     }
     
+    //debugger
     logOverflow('Mouseover at ' + (new Date).toString() + ': expanding')
     this.props.dispatch({type: types.SET_HOVERED_RESULT,
       hoveredResultId: result.id})
+      
+    let elt = document.querySelector('*[data-id="'+result.id+'"]')
+    let bounds = elt.getBoundingClientRect()
+    //debugger
+    this.props.dispatch(actions.setHoveredImageBoundingBox(bounds))
+    logOverflow('Box is ' + bounds.left + ', ' + bounds.top + ' - ' + bounds.right + ', ' + bounds.bottom)
   };
 
   onMouseOut = (result, e) => {
+  //debugger
+    const now_date = new Date
     if (this.props.overflow) {
-      logOverflow('Mouseout at ' + (new Date).toString() + ': in overflow mode, not collapsing')
+      logOverflow('Mouseout at ' + now_date.toString() + ': in overflow mode, not collapsing')
       return
     }
     
-    const now_date = new Date
+    logOverflow('out at ' + e.screenX + ', ' + e.screenY)
+    if (this.props.hoveredImageBoundingBox) {
+      logOverflow('checking for overflow')
+      if (e.screenX > this.props.hoveredImageBoundingBox.left && e.screenX < this.props.hoveredImageBoundingBox.right &&
+        e.screenY > this.props.hoveredImageBoundingBox.top && e.screenY < this.props.hoveredImageBoundingBox.bottom
+      ) {
+        logOverflow('Mouseout at ' + now_date.toString() + ': entering overflow mode via position')
+        this.props.dispatch(actions.overflow())
+        return
+        
+      }
+    }
+      /*
     const now = now_date.valueOf()
     if (now < this.props.imageLoadedTime + 500) {
       logOverflow('Mouseout at ' + now_date.toString() + ': entering overflow mode')
@@ -93,6 +115,7 @@ class App extends Component {
       return
     }
     logOverflow('Mouseout at ' + now_date.toString() + ': collapsing')
+    */
     this.props.dispatch({type: types.SET_HOVERED_RESULT,
       hoveredResultId: null})
   };
@@ -153,7 +176,7 @@ class App extends Component {
             <div>
               <h2>Results</h2>
               {results.map(function(result, i) {
-                return <div key={result.id} style={{float:'left', margin:'5px'}}
+                return <div data-id={result.id} key={result.id} style={{float:'left', margin:'5px'}}
                   onMouseOver={(e)=>(this.onMouseOver(result, e))}
                   onMouseOut={(e)=>(this.onMouseOut(result, e))}
                   onClick={(e)=>(this.onClick(result, e))}

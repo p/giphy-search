@@ -149,3 +149,7 @@ export function overflow() {
 export function clearOverflow() {
   return {type: types.CLEAR_OVERFLOW}
 }
+
+export function setHoveredImageBoundingBox(bounds) {
+  return {type: types.SET_HOVERED_IMAGE_BOUNDING_BOX, hoveredImageBoundingBox: bounds}
+}

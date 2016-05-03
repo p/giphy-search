@@ -14,6 +14,7 @@ const initialState = Immutable.Map({
   showingQueryBox: false,
   imageLoadedTime: 0,
   overflow: false,
+  hoveredImageBoundingBox: null,
 });
 
 export default function reduce(state=initialState, action) {
@@ -57,6 +58,9 @@ export default function reduce(state=initialState, action) {
 
     case types.CLEAR_OVERFLOW:
       return state.merge({overflow: false})
+
+    case types.SET_HOVERED_IMAGE_BOUNDING_BOX:
+      return state.merge({hoveredImageBoundingBox: action.hoveredImageBoundingBox})
 
     default:
       return state
