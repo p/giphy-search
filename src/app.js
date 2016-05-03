@@ -82,6 +82,12 @@ class App extends Component {
       
     let elt = document.querySelector('*[data-id="'+result.id+'"]')
     let bounds = elt.getBoundingClientRect()
+    if (e.screenX < bounds.left || e.screenX > bounds.right ||
+      e.screenY < bounds.top || e.screenY > bounds.bottom)
+    {
+      debugger
+      console.log('cursor position not within element bounds')
+    }
     //debugger
     this.props.dispatch(actions.setHoveredImageBoundingBox(bounds))
     logOverflow('Box is ' + bounds.left + ', ' + bounds.top + ' - ' + bounds.right + ', ' + bounds.bottom)
