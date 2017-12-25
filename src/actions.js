@@ -34,11 +34,11 @@ export function prevPage() {
 
 function realGiphySearch(dispatch, query, offset) {
   return fetch(`https://api.giphy.com/v1/gifs/search?q=${query}&api_key=${Config.api_key}&offset=${offset}`)
-    .then(response => {
-      const json = response.json().then(resp2 => {
-        dispatch(fetchGifsSuccess(resp2.data, query, offset))
-      })
-    }, response => {
+    .then(response => response.json())
+    .then(payload => {
+      dispatch(fetchGifsSuccess(payload.data, query, offset))
+    })
+    .catch(response => {
       dispatch(fetchGifsFailure(response.message))
     })
 }
