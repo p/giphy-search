@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -e
+
+rm -rf dist
+npm run deploy
+cp index.html dist/
